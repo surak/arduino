@@ -1,3 +1,9 @@
+#include <MyWifiCentral.h>
+/* 
+ *  I keep the auth data out of the file, so I don't need to worry with them spilling on my github.
+ *  Check this great example at:
+ *  http://www.instructables.com/id/Build-a-Custom-ESP8266-Arduino-WiFi-Library/?ALLSTEPS
+ */
 #define BLYNK_PRINT Serial
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
@@ -10,15 +16,16 @@
 #define TRIG_PIN 13
 #define LED_PIN 16
 
-char auth[] = "";
-char ssid[] = "";
-char pass[] = "";
+MyWifiCentral myWifiCentral;
+char* auth = myWifiCentral.auth();
+char* ssid = myWifiCentral.ssid();
+char* password = myWifiCentral.passcode();
 
 SimpleTimer timer;
 void setup()
 {
   Serial.begin(9600);
-  Blynk.begin(auth, ssid, pass);
+  Blynk.begin(auth, ssid, password);
   pinMode(ECHO_PIN, INPUT);
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(LED_PIN, OUTPUT);
